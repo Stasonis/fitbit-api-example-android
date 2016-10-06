@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Sample Fitbit Client!</string>
+    <string name="title_activity_main">Sample Fitbit Client!</string>
+    <string name="login_with_fitbit">Login with Fitbit</string>
+    <string name="scopes_granted_format">Scopes Granted: %s</string>
+    <string name="user_info">User Info</string>
+    <string name="activity_info">Activity Info</string>
+    <string name="hello_format">Hello %s!</string>
+    <string name="devices">Paired Devices</string>
+    <string name="welcome">Welcome!</string>
+    <string name="fitbit_logo_description">Fitbit Logo</string>
+    <string name="error_loading_devices_format">Error loading devices: %s</string>
+    <string name="error_loading_activities_format">Error loading user activities: %s</string>
+    <string name="error_loading_user_format">Error loading user: %s</string>
+    <string name="scopes_missing_format">`%s` scope(s) required to function correctly.</string>
+    <string name="login_title">Login</string>
+    <string name="missing_scopes_error">Error logging in. Missing the following required scopes: </string>
+    <string name="login_dismissed">Login dismissed or no scopes selected</string>
+    <string name="no_data">No data</string>
+    <string name="loading">Loading…</string>
+</resources>

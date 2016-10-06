@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.fitbit.sampleandroidoauth2.RootActivity">
+
+    <data>
+        <variable
+            name="user"
+            type="com.fitbit.api.models.User"/>
+
+        <variable
+            name="loading"
+            type="java.lang.Boolean"/>
+
+        <variable
+            name="scopesGranted"
+            type="java.lang.String"/>
+
+        <import type="android.view.View"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="@{loading ? View.GONE : View.VISIBLE}">
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/activity_horizontal_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_horizontal_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/hello_format(user.getFullName())}"
+                        android:textSize="@dimen/title_text_size"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/scopes_granted_format(scopesGranted)}"
+                        android:visibility="@{scopesGranted != null ? View.VISIBLE : View.GONE}"/>
+
+                    <com.fitbit.sampleandroidoauth2.views.ProfileInfoView
+                        android:id="@+id/profileInfoView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                    />
+
+                    <com.fitbit.sampleandroidoauth2.views.DeviceView
+                        android:id="@+id/deviceInfoView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                    />
+
+                    <com.fitbit.sampleandroidoauth2.views.UserActivityView
+                        android:id="@+id/activityInfoView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                    />
+
+                </LinearLayout>
+
+
+            </ScrollView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+            >
+
+                <Button
+                    android:id="@+id/logout_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onLogoutClick"
+                    android:text="@string/logout"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="@{loading ? View.VISIBLE : View.GONE}">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>

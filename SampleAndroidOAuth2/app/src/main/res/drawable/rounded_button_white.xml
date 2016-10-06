@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+
+    <solid android:color="#AAFFFFFF" />
+
+    <corners
+        android:bottomLeftRadius="@dimen/login_button_radius"
+        android:bottomRightRadius="@dimen/login_button_radius"
+        android:topLeftRadius="@dimen/login_button_radius"
+        android:topRightRadius="@dimen/login_button_radius" />
+
+</shape>

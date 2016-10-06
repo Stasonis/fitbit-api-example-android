@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Fitbit Login</string>
+    <string name="logout">Logout</string>
+    <string name="logging_you_into_fitbit">Logging you into Fitbit&#8230;</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Fitbit" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+    </style>
+
+
+    <style name="Theme.Fitbit.Teal" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary_teal</item>
+        <item name="colorPrimaryDark">@color/primary_dark_teal</item>
+    </style>
+
+</resources>
