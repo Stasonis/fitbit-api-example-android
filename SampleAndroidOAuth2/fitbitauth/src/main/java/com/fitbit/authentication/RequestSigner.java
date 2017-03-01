@@ -1,6 +1,6 @@
 package com.fitbit.authentication;
 
-import okhttp3.Request;
+import com.fitbit.fitbitcommon.network.BasicHttpRequestBuilder;
 
 /**
  * Created by jboggess on 9/26/16.
@@ -8,6 +8,6 @@ import okhttp3.Request;
 
 public interface RequestSigner {
 
-    void signRequest(Request.Builder builder);
+    void signRequest(BasicHttpRequestBuilder builder);
 
 }

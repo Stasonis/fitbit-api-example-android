@@ -1,28 +1,31 @@
 package com.fitbit.api.services;
 
-import com.fitbit.api.APIUtils;
-import com.fitbit.api.MissingScopesException;
-import com.fitbit.api.ResourceLoadedHandler;
-import com.fitbit.api.ResourceLoader;
-import com.fitbit.api.TokenExpiredException;
-import com.fitbit.api.models.Activities;
-import com.fitbit.authentication.AuthenticationManager;
+import com.fitbit.api.exceptions.MissingScopesException;
+import com.fitbit.api.exceptions.TokenExpiredException;
+import com.fitbit.api.loaders.ResourceLoaderFactory;
+import com.fitbit.api.loaders.ResourceLoaderResult;
+import com.fitbit.api.models.DailyActivitySummary;
 import com.fitbit.authentication.Scope;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
+import android.content.Loader;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by jboggess on 10/3/16.
  */
 public class ActivityService {
 
-    private final static String ACTIVITIES_URL = "https://api.fitbit.com/1/user/-/activities.json";
-    private static final ResourceLoader<Activities> USER_ACTIVITIES_LOADER = new ResourceLoader<>(ACTIVITIES_URL, Activities.class);
+    private final static String ACTIVITIES_URL = "https://api.fitbit.com/1/user/-/activities/date/%s.json";
+    private static final ResourceLoaderFactory<DailyActivitySummary> USER_ACTIVITIES_LOADER_FACTORY = new ResourceLoaderFactory<>(ACTIVITIES_URL, DailyActivitySummary.class);
+    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
-    public static void getUserActivities(Activity activityContext, @NonNull final ResourceLoadedHandler<Activities> handler) throws MissingScopesException, TokenExpiredException {
-        APIUtils.validateToken(activityContext, AuthenticationManager.getCurrentAccessToken(), Scope.activity);
-        USER_ACTIVITIES_LOADER.loadResource(activityContext, handler);
+    public static Loader<ResourceLoaderResult<DailyActivitySummary>> getDailyActivitySummaryLoader(Activity activityContext, Date date) throws MissingScopesException, TokenExpiredException {
+        return USER_ACTIVITIES_LOADER_FACTORY.newResourceLoader(activityContext, new Scope[]{Scope.activity}, dateFormat.format(date));
     }
 
 }

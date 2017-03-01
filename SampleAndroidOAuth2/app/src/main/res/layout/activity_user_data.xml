@@ -30,55 +30,13 @@
             android:orientation="vertical"
             android:visibility="@{loading ? View.GONE : View.VISIBLE}">
 
-            <ScrollView
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_weight="1">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/activity_horizontal_margin"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:paddingTop="@dimen/activity_horizontal_margin">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{@string/hello_format(user.getFullName())}"
-                        android:textSize="@dimen/title_text_size"/>
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{@string/scopes_granted_format(scopesGranted)}"
-                        android:visibility="@{scopesGranted != null ? View.VISIBLE : View.GONE}"/>
-
-                    <com.fitbit.sampleandroidoauth2.views.ProfileInfoView
-                        android:id="@+id/profileInfoView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                    />
-
-                    <com.fitbit.sampleandroidoauth2.views.DeviceView
-                        android:id="@+id/deviceInfoView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                    />
-
-                    <com.fitbit.sampleandroidoauth2.views.UserActivityView
-                        android:id="@+id/activityInfoView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                    />
-
-                </LinearLayout>
-
-
-            </ScrollView>
+            </android.support.v4.view.ViewPager>
 
             <RelativeLayout
                 android:layout_width="match_parent"

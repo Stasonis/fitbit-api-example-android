@@ -1,4 +1,3 @@
-
 package com.fitbit.api.models;
 
 import com.google.gson.annotations.Expose;
@@ -15,36 +14,28 @@ public class Lifetime {
     private Tracker_ tracker;
 
     /**
-     * 
-     * @return
-     *     The total
+     * @return The total
      */
     public Total_ getTotal() {
         return total;
     }
 
     /**
-     * 
-     * @param total
-     *     The total
+     * @param total The total
      */
     public void setTotal(Total_ total) {
         this.total = total;
     }
 
     /**
-     * 
-     * @return
-     *     The tracker
+     * @return The tracker
      */
     public Tracker_ getTracker() {
         return tracker;
     }
 
     /**
-     * 
-     * @param tracker
-     *     The tracker
+     * @param tracker The tracker
      */
     public void setTracker(Tracker_ tracker) {
         this.tracker = tracker;

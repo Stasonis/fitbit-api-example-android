@@ -1,5 +1,7 @@
 package com.fitbit.api;
 
+import com.fitbit.api.exceptions.MissingScopesException;
+import com.fitbit.api.exceptions.TokenExpiredException;
 import com.fitbit.authentication.AccessToken;
 import com.fitbit.authentication.AuthenticationManager;
 import com.fitbit.authentication.Scope;

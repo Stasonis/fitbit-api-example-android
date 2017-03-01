@@ -1,4 +1,3 @@
-
 package com.fitbit.api.models;
 
 import com.google.gson.annotations.Expose;
@@ -18,54 +17,42 @@ public class Tracker {
     private Steps_ steps;
 
     /**
-     * 
-     * @return
-     *     The distance
+     * @return The distance
      */
     public Distance_ getDistance() {
         return distance;
     }
 
     /**
-     * 
-     * @param distance
-     *     The distance
+     * @param distance The distance
      */
     public void setDistance(Distance_ distance) {
         this.distance = distance;
     }
 
     /**
-     * 
-     * @return
-     *     The floors
+     * @return The floors
      */
     public Floors_ getFloors() {
         return floors;
     }
 
     /**
-     * 
-     * @param floors
-     *     The floors
+     * @param floors The floors
      */
     public void setFloors(Floors_ floors) {
         this.floors = floors;
     }
 
     /**
-     * 
-     * @return
-     *     The steps
+     * @return The steps
      */
     public Steps_ getSteps() {
         return steps;
     }
 
     /**
-     * 
-     * @param steps
-     *     The steps
+     * @param steps The steps
      */
     public void setSteps(Steps_ steps) {
         this.steps = steps;

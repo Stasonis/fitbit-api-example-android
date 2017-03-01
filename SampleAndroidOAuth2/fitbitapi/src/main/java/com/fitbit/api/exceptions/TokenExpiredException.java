@@ -1,4 +1,4 @@
-package com.fitbit.api;
+package com.fitbit.api.exceptions;
 
 /**
  * Created by jboggess on 9/19/16.

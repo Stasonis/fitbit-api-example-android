@@ -1,6 +1,7 @@
 package com.fitbit.authentication;
 
 import com.fitbit.authentication.ui.LoginActivity;
+import com.fitbit.fitbitcommon.network.BasicHttpRequestBuilder;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,8 +14,6 @@ import com.sveinungkb.SecurePreferences;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import okhttp3.Request;
 
 /**
  * Created by jboggess on 9/14/16.
@@ -145,10 +144,10 @@ public class AuthenticationManager {
         return authenticationConfiguration;
     }
 
-    public static Request.Builder createSignedRequest() {
-        Request.Builder requestBuilder = new Request.Builder();
-        authenticationConfiguration.getRequestSigner().signRequest(requestBuilder);
-        return requestBuilder;
+    public static BasicHttpRequestBuilder createSignedRequest() {
+        BasicHttpRequestBuilder basicHttpRequestBuilder = BasicHttpRequestBuilder.create();
+        authenticationConfiguration.getRequestSigner().signRequest(basicHttpRequestBuilder);
+        return basicHttpRequestBuilder;
     }
 
 

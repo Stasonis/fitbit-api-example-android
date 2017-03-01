@@ -9,7 +9,15 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Fitbit.Teal">
+        android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.fitbit.sampleandroidoauth2.CLIENT_ID"
+            android:value="227YZT"/>
+        <meta-data
+            android:name="com.fitbit.sampleandroidoauth2.REDIRECT_URL"
+            android:value="https://finished"/>
+
         <activity
             android:name=".RootActivity"
             android:label="@string/title_activity_main"
@@ -19,7 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".UserDataActivity">
+        <activity android:name=".UserDataActivity"
+                  android:theme="@style/AppTheme">
         </activity>
     </application>
 

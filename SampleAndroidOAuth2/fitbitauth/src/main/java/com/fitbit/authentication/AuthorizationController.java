@@ -2,12 +2,11 @@ package com.fitbit.authentication;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-
-import com.google.common.base.Joiner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,7 @@ public class AuthorizationController implements UrlChangeHandler {
                 AUTHORIZE_URL_FORMAT,
                 clientCredentials.getClientId(),
                 clientCredentials.getRedirectUrl(),
-                Joiner.on("%20").join(scopes),
+                TextUtils.join("%20", scopes),
                 expiresIn);
         webView.loadUrl(url);
     }

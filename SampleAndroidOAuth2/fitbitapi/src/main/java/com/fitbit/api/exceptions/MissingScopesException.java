@@ -1,4 +1,4 @@
-package com.fitbit.api;
+package com.fitbit.api.exceptions;
 
 import com.fitbit.authentication.Scope;
 

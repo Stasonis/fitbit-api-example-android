@@ -1,32 +1,22 @@
 package com.fitbit.sampleandroidoauth2;
 
-import com.fitbit.api.MissingScopesException;
-import com.fitbit.api.ResourceLoadedHandler;
-import com.fitbit.api.models.Device;
-import com.fitbit.api.models.User;
-import com.fitbit.api.services.ActivityService;
-import com.fitbit.api.services.DeviceService;
-import com.fitbit.api.services.UserService;
-import com.fitbit.authentication.AccessToken;
 import com.fitbit.authentication.AuthenticationManager;
-import com.fitbit.authentication.Scope;
 import com.fitbit.sampleandroidoauth2.databinding.ActivityUserDataBinding;
 
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.common.base.Joiner;
-
-import com.fitbit.api.models.Activities;
-
-public class UserDataActivity extends AppCompatActivity implements UserService.UserHandler, ResourceLoadedHandler {
+public class UserDataActivity extends Activity {
 
     private ActivityUserDataBinding binding;
+    private UserDataPagerAdapter userDataPagerAdapter;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, UserDataActivity.class);
@@ -36,69 +26,57 @@ public class UserDataActivity extends AppCompatActivity implements UserService.U
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_data);
+        binding.setLoading(false);
+
+        userDataPagerAdapter = new UserDataPagerAdapter(getFragmentManager());
+        binding.viewPager.setAdapter(userDataPagerAdapter);
+
+        binding.viewPager.addOnPageChangeListener(
+                new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        // When swiping between pages, select the
+                        // corresponding tab.
+                        getActionBar().setSelectedNavigationItem(position);
+                    }
+                });
+
+        addTabs();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void addTabs() {
+        final ActionBar actionBar = getActionBar();
+        // Specify that tabs should be displayed in the action bar.
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        binding.setLoading(true);
-        displayScopes();
-        loadUserData();
-    }
+        int numberOfTabs = userDataPagerAdapter.getCount();
+        for (int i = 0; i < numberOfTabs; i++) {
+            final int index = i;
+            actionBar.addTab(
+                    actionBar.newTab()
+                            .setText(getString(userDataPagerAdapter.getTitleResourceId(i)))
+                            .setTabListener(new ActionBar.TabListener() {
+                                @Override
+                                public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+                                    binding.viewPager.setCurrentItem(index);
+                                }
 
-    private void displayScopes() {
-        AccessToken accessToken = AuthenticationManager.getCurrentAccessToken();
-        binding.setScopesGranted(Joiner.on(", ").join(accessToken.getScopes()));
-    }
+                                @Override
+                                public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
 
-    private void loadUserData() {
-        try {
-            UserService.getLoggedInUserProfile(this, this);
-            DeviceService.getUserDevices(this, this);
+                                }
 
-            if (AuthenticationManager.getCurrentAccessToken().getScopes().contains(Scope.activity)) {
-                ActivityService.getUserActivities(this, this);
-            }
-        } catch (MissingScopesException e) {
-            Toast.makeText(this,
-                    String.format(getString(R.string.scopes_missing_format), Joiner.on("`, `").join(e.getScopes())),
-                    Toast.LENGTH_SHORT).show();
+                                @Override
+                                public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+                                }
+                            }));
         }
     }
+
 
     public void onLogoutClick(View view) {
         binding.setLoading(true);
         AuthenticationManager.logout(this);
-    }
-
-
-    @Override
-    public void onUserLoaded(User user) {
-        binding.setUser(user);
-        binding.setLoading(false);
-        binding.profileInfoView.bindProfileInfo(user);
-    }
-    @Override
-    public void onErrorLoadingUser(String errorMessage) {
-        showErrorMesage(errorMessage);
-    }
-
-    @Override
-    public void onResourceLoaded(Object resource) {
-        if (resource instanceof Device[]) {
-            binding.deviceInfoView.bindDevices((Device[])resource);
-        } else if (resource instanceof Activities) {
-            binding.activityInfoView.bindActivityData((Activities)resource);
-        }
-    }
-
-    @Override
-    public void onResourceLoadError(String errorMessage) {
-        showErrorMesage(errorMessage);
-    }
-
-    private void showErrorMesage(String message){
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

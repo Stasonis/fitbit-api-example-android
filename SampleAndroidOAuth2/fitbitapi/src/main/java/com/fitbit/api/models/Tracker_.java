@@ -1,4 +1,3 @@
-
 package com.fitbit.api.models;
 
 import com.google.gson.annotations.Expose;
@@ -24,90 +23,70 @@ public class Tracker_ {
     private Integer steps;
 
     /**
-     * 
-     * @return
-     *     The activeScore
+     * @return The activeScore
      */
     public Integer getActiveScore() {
         return activeScore;
     }
 
     /**
-     * 
-     * @param activeScore
-     *     The activeScore
+     * @param activeScore The activeScore
      */
     public void setActiveScore(Integer activeScore) {
         this.activeScore = activeScore;
     }
 
     /**
-     * 
-     * @return
-     *     The caloriesOut
+     * @return The caloriesOut
      */
     public Integer getCaloriesOut() {
         return caloriesOut;
     }
 
     /**
-     * 
-     * @param caloriesOut
-     *     The caloriesOut
+     * @param caloriesOut The caloriesOut
      */
     public void setCaloriesOut(Integer caloriesOut) {
         this.caloriesOut = caloriesOut;
     }
 
     /**
-     * 
-     * @return
-     *     The distance
+     * @return The distance
      */
     public Double getDistance() {
         return distance;
     }
 
     /**
-     * 
-     * @param distance
-     *     The distance
+     * @param distance The distance
      */
     public void setDistance(Double distance) {
         this.distance = distance;
     }
 
     /**
-     * 
-     * @return
-     *     The floors
+     * @return The floors
      */
     public Integer getFloors() {
         return floors;
     }
 
     /**
-     * 
-     * @param floors
-     *     The floors
+     * @param floors The floors
      */
     public void setFloors(Integer floors) {
         this.floors = floors;
     }
 
     /**
-     * 
-     * @return
-     *     The steps
+     * @return The steps
      */
     public Integer getSteps() {
         return steps;
     }
 
     /**
-     * 
-     * @param steps
-     *     The steps
+     * @param steps The steps
      */
     public void setSteps(Integer steps) {
         this.steps = steps;

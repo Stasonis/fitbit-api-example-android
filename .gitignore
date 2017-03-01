@@ -1,0 +1,7 @@
+.DS_Store
+proguard-rules.pro
+.idea/
+gradle/
+gradlew
+gradlew.bat
+local.properties

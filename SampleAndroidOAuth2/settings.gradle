@@ -1,1 +1,1 @@
-include ':app', ':fitbitapi', ':fitbitauth'
+include ':app', ':fitbitapi', ':fitbitauth', ':fitbitcommon'

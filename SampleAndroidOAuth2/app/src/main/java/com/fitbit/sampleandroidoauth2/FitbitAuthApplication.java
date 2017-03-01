@@ -10,6 +10,11 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+
+import static com.fitbit.authentication.Scope.activity;
 
 /**
  * Created by jboggess on 9/28/16.
@@ -24,23 +29,17 @@ public class FitbitAuthApplication extends Application {
      * set the "OAuth 2.0 Application Type" to "Client", enter a word for the redirect url as a url
      * (like `https://finished` or `https://done` or `https://completed`, etc.), and save.
      * <p>
-     * You'll get a client id and client secret which you can enter here. Since these are sensitive
-     * values, you'll want to package up into a jks for a production application.
      */
 
-    private static final String CLIENT_ID = "227YZT";
+    //!! THIS SHOULD BE IN AN ANDROID KEYSTORE!! See https://developer.android.com/training/articles/keystore.html
     private static final String CLIENT_SECRET = "86401692efd006045a157f45755000d0";
-    private static final String REDIRECT_URL = "https://finished";
-
-
-    private static final ClientCredentials CLIENT_CREDENTIALS = new ClientCredentials(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
     /**
-     * This key was generated using the SecureKeyGenerator [java] class. Run as a Java application (not Android!)
-     * This key is used to encrypt the authentication token in Android user preferences, so it might
-     * be wise to load from a file or not bundle with the apk. If someone decompiles your application
-     * apk code they'll have access to this key, and access to your user's authentication token
+     * This key was generated using the SecureKeyGenerator [java] class. Run as a Java application (not Android)
+     * This key is used to encrypt the authentication token in Android user preferences. If someone decompiles
+     * your application they'll have access to this key, and access to your user's authentication token
      */
+    //!! THIS SHOULD BE IN AN ANDROID KEYSTORE!! See https://developer.android.com/training/articles/keystore.html
     private static final String SECURE_KEY = "CVPdQNAT6fBI4rrPLEn9x0+UV84DoqLFiNHpKOPLRW0=";
 
     /**
@@ -50,17 +49,32 @@ public class FitbitAuthApplication extends Application {
      */
     public static AuthenticationConfiguration generateAuthenticationConfiguration(Context context, Class<? extends Activity> mainActivityClass) {
 
-        return new AuthenticationConfigurationBuilder()
+        try {
+            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            Bundle bundle = ai.metaData;
 
-                .setClientCredentials(CLIENT_CREDENTIALS)
-                .setEncryptionKey(SECURE_KEY)
-                .setTokenExpiresIn(2592000L) // 30 days
-                .setBeforeLoginActivity(new Intent(context, mainActivityClass))
-                .addRequiredScopes(Scope.profile, Scope.settings)
-                .addOptionalScopes(Scope.activity)
-                .setLogoutOnAuthFailure(true)
+            // Load clientId and redirectUrl from application manifest
+            String clientId = bundle.getString("com.fitbit.sampleandroidoauth2.CLIENT_ID");
+            String redirectUrl = bundle.getString("com.fitbit.sampleandroidoauth2.REDIRECT_URL");
 
-                .build();
+
+            ClientCredentials CLIENT_CREDENTIALS = new ClientCredentials(clientId, CLIENT_SECRET, redirectUrl);
+
+            return new AuthenticationConfigurationBuilder()
+
+                    .setClientCredentials(CLIENT_CREDENTIALS)
+                    .setEncryptionKey(SECURE_KEY)
+                    .setTokenExpiresIn(2592000L) // 30 days
+                    .setBeforeLoginActivity(new Intent(context, mainActivityClass))
+                    .addRequiredScopes(Scope.profile, Scope.settings)
+                    .addOptionalScopes(activity, Scope.weight)
+                    .setLogoutOnAuthFailure(true)
+
+                    .build();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

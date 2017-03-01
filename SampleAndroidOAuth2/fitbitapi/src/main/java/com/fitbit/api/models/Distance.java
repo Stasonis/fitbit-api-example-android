@@ -1,53 +1,43 @@
-
 package com.fitbit.api.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
 public class Distance {
 
-    @SerializedName("date")
+    @SerializedName("activity")
     @Expose
-    private String date;
-    @SerializedName("value")
+    private String activity;
+    @SerializedName("distance")
     @Expose
-    private Double value;
+    private Double distance;
 
     /**
-     * 
-     * @return
-     *     The date
+     * @return The activity
      */
-    public String getDate() {
-        return date;
+    public String getActivity() {
+        return activity;
     }
 
     /**
-     * 
-     * @param date
-     *     The date
+     * @param activity The activity
      */
-    public void setDate(String date) {
-        this.date = date;
+    public void setActivity(String activity) {
+        this.activity = activity;
     }
 
     /**
-     * 
-     * @return
-     *     The value
+     * @return The distance
      */
-    public Double getValue() {
-        return value;
+    public Double getDistance() {
+        return distance;
     }
 
     /**
-     * 
-     * @param value
-     *     The value
+     * @param distance The distance
      */
-    public void setValue(Double value) {
-        this.value = value;
+    public void setDistance(Double distance) {
+        this.distance = distance;
     }
 
 }

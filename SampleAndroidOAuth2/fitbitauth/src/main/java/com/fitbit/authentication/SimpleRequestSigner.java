@@ -1,6 +1,6 @@
 package com.fitbit.authentication;
 
-import okhttp3.Request;
+import com.fitbit.fitbitcommon.network.BasicHttpRequestBuilder;
 
 /**
  * Created by jboggess on 9/26/16.
@@ -9,7 +9,7 @@ import okhttp3.Request;
 public class SimpleRequestSigner implements RequestSigner {
 
     @Override
-    public void signRequest(Request.Builder builder) {
+    public void signRequest(BasicHttpRequestBuilder builder) {
         AccessToken currentAccessToken = AuthenticationManager.getCurrentAccessToken();
         String bearer;
         if (currentAccessToken == null || currentAccessToken.hasExpired()) {
@@ -17,6 +17,6 @@ public class SimpleRequestSigner implements RequestSigner {
         } else {
             bearer = currentAccessToken.getAccessToken();
         }
-        builder.header("Authorization", String.format("Bearer %s", bearer));
+        builder.setAuthorization(String.format("Bearer %s", bearer));
     }
 }
